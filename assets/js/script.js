@@ -6,6 +6,13 @@ $("#currentDay").append(currentDate.format("MMM DD, YYYY - hh:mm:ss a"));
 let times= [moment('9:00 am', 'hh:mm a'), moment('10:00 am', 'hh:mm a'), moment('11:00 am', 'hh:mm a'), moment('12:00 pm', 'hh:mm a'), moment('1:00 pm', 'hh:mm a'), moment('2:00 pm', 'hh:mm a'), moment('3:00 pm', 'hh:mm a'),  moment('4:00 pm', 'hh:mm a'), moment('5:00 pm', 'hh:mm a')];
 let ids= ["#9AM", "#10AM", "#11AM", "#12PM", "#1PM", "#2PM", "#3PM", "#4PM", "#5PM"];
 
+//Get items from local storage if its there. 
+if(localStorage){
+    for(i=0; i<ids.length; i++){
+        $(ids[i]).text(localStorage.getItem(ids[i]));
+    }
+}
+
 //loops through area and sets background color depending on current time
 for(let i=0; i<times.length; i++){
     if (moment(currentDate).isBefore(times[i])){
@@ -19,7 +26,7 @@ for(let i=0; i<times.length; i++){
     }
 }
 
-
+// Set items into local storage on click
 $(".saveBtn").click(function(){
-    localStorage.setItem("#9AM", $("#9AM").val());
+    localStorage.setItem($(this).data('id'), $($(this).data('id')).val());
 });
